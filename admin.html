@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LiveMap.ai - Admin Control</title>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+body { margin:0; background:#111; color:#0f0; font-family:Arial; }
+#top { padding:10px; background:#000; text-align:center; }
+#map { height: calc(100vh - 50px); }
+</style>
+</head>
+
+<body>
+
+<div id="top">LiveMap.ai — City Heatmap (ADMIN)</div>
+<div id="map"></div>
+
+<script>
+var map = L.map('map').setView([17.385, 78.486], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+var heat = L.heatLayer([], {radius: 30}).addTo(map);
+
+async function update(){
+  const res = await fetch("http://127.0.0.1:8000/admin/gps");
+  const data = await res.json();
+
+  let points = [];
+
+  for(let id in data){
+    let v = data[id];
+    points.push([v.lat, v.lng, 0.7]);
+  }
+
+  heat.setLatLngs(points);
+}
+
+setInterval(update, 1000);
+var predictLayer = L.heatLayer([], {radius:40, gradient:{0.4:'blue',0.7:'yellow',1:'red'}}).addTo(map);
+
+async function predict(){
+  const res = await fetch("http://127.0.0.1:8000/predict/Acme");
+  const data = await res.json();
+  predictLayer.setLatLngs(data);
+}
+
+setInterval(predict, 5000);
+</script>
+
+</body>
+</html>
