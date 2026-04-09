@@ -250,7 +250,6 @@ export default function Dashboard({ user }) {
 
 */
 
-
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
@@ -258,7 +257,7 @@ import LiveMap from "../LiveMap";
 import AddVehicle from "../components/AddVehicle";
 import AddDriver from "../components/AddDriver";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://navix-backend-p35u.onrender.com";
 
 export default function Dashboard({ user, onLogout }) {
   const [vehicles, setVehicles] = useState([]);
@@ -286,23 +285,15 @@ export default function Dashboard({ user, onLogout }) {
   }, [user]);
 
   return (
-    <div className="layout" style={{ display: "flex", height: "100vh" }}>
+    <div className="layout">
       <Sidebar user={user} onLogout={onLogout} />
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div className="main">
         <Topbar onLogout={onLogout} />
 
         {/* ADMIN PANEL */}
         {user.role === "admin" && (
-          <div
-            style={{
-              padding: "10px",
-              background: "#020617",
-              borderBottom: "1px solid #1e293b",
-              display: "flex",
-              gap: "30px",
-            }}
-          >
+          <div className="admin-panel">
             <AddVehicle company={user.company} />
             <AddDriver company={user.company} />
 
@@ -327,38 +318,18 @@ export default function Dashboard({ user, onLogout }) {
         )}
 
         {/* MAIN CONTENT */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            gap: "12px",
-            padding: "12px",
-          }}
-        >
+        <div className="content">
           {/* LEFT PANEL */}
-          <div
-            style={{
-              width: "260px",
-              background: "#0f172a",
-              borderRadius: "10px",
-              padding: "12px",
-              overflowY: "auto",
-            }}
-          >
+          <div className="vehicle-panel">
             <h3>Live Vehicles</h3>
 
             {vehicles.map((v) => (
               <div
                 key={v.id}
                 onClick={() => setFocusVehicle(v.id)}
-                style={{
-                  padding: "10px",
-                  marginBottom: "8px",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  background:
-                    focusVehicle === v.id ? "#1e293b" : "#020617",
-                }}
+                className={`vehicle-item ${
+                  focusVehicle === v.id ? "active" : ""
+                }`}
               >
                 <strong>{v.id}</strong>
                 <div>Lat: {v.lat?.toFixed?.(4) || "N/A"}</div>
@@ -368,13 +339,7 @@ export default function Dashboard({ user, onLogout }) {
           </div>
 
           {/* MAP */}
-          <div
-            style={{
-              flex: 1,
-              borderRadius: "10px",
-              overflow: "hidden",
-            }}
-          >
+          <div className="map-panel">
             <LiveMap focusVehicle={focusVehicle} />
           </div>
         </div>

@@ -369,3 +369,158 @@ button {
 button:hover {
   background: #1d4ed8;
 }
+
+/* ===== RESPONSIVE DASHBOARD ===== */
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* MAIN AREA */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* VEHICLE PANEL */
+.vehicle-panel {
+  width: 260px;
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.vehicle-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #020617;
+}
+
+.vehicle-item.active {
+  background: #1e293b;
+}
+
+/* MAP PANEL */
+.map-panel {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #020617;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .vehicle-panel {
+    width: 100%;
+    max-height: 200px;
+  }
+
+  .map-panel {
+    height: 300px;
+  }
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== ADMIN PANEL ===== */
+.admin-panel {
+  padding: 10px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap; /* 🔥 important for mobile */
+}
+
+/* ===== CONTENT ===== */
+.content {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* ===== VEHICLE PANEL ===== */
+.vehicle-panel {
+  width: 260px;
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.vehicle-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #020617;
+}
+
+.vehicle-item.active {
+  background: #1e293b;
+}
+
+/* ===== MAP ===== */
+.map-panel {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .vehicle-panel {
+    width: 100%;
+    max-height: 200px;
+  }
+
+  .map-panel {
+    height: 300px;
+  }
+
+  .admin-panel {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
